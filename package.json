@@ -1,0 +1,20 @@
+{
+  "name": "t3code-themes",
+  "version": "0.1.0",
+  "description": "Importable themes for T3 Code, generated and validated with T3's own palette engine. Includes Nous Alt and Nous from Hermes Agent.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soya-miruku/t3code-themes.git"
+  },
+  "keywords": ["t3code", "theme", "oklch", "hermes-agent", "nous-research"],
+  "scripts": {
+    "build": "bun run build.ts"
+  },
+  "dependencies": {
+    "culori": "^4.0.2",
+    "effect": "4.0.0-rc.115"
+  }
+}
