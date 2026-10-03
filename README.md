@@ -20,9 +20,16 @@ Each theme ships a **light and a dark** variant and sets all 57 of T3's color ro
 
 ## Install
 
+Grab the file from the [latest release](https://github.com/soya-miruku/t3code-themes/releases/latest), or download it directly:
+
+| Theme | Direct download |
+| --- | --- |
+| Nous Alt | [`nous-alt.json`](https://github.com/soya-miruku/t3code-themes/releases/latest/download/nous-alt.json) |
+| Nous | [`nous.json`](https://github.com/soya-miruku/t3code-themes/releases/latest/download/nous.json) |
+
 ### Import into the app (per device)
 
-1. Download the theme file from [`themes/`](themes/) (or from the [latest release](../../releases/latest)).
+1. Download a theme file (above).
 2. In T3 Code open **Settings → Appearance → Add theme**.
 3. Drop the `.json` file in, or paste its contents into **Theme JSON**, then click **Add theme**. The theme is selected automatically.
 
@@ -30,11 +37,19 @@ Imported themes are saved in that browser or desktop profile, so import once per
 
 ### Publish from a server
 
-T3 can also follow themes published by the server it connects to. Copy a file into the server's `themes` directory; the **file name is the theme id**:
+T3 can also follow themes published by the server it connects to. The one-liner:
 
 ```bash
-cp themes/nous-alt.json ~/.t3/userdata/themes/
-t3 theme set nous-alt   # optional: make it the default for connected clients
+curl -LO https://github.com/soya-miruku/t3code-themes/releases/latest/download/nous-alt.json
+t3 theme set ./nous-alt.json
+```
+
+`t3 theme set <file>` copies the file into the server's `themes` directory under its file name (the **file name is the theme id**) and makes it the default for connected clients. Add `--base-dir <dir>` if your T3 home isn't the default.
+
+To publish without changing anyone's default, copy the file yourself instead:
+
+```bash
+cp nous-alt.json ~/.t3/userdata/themes/
 ```
 
 Web and desktop clients connected to that server pick it up live. See T3's [appearance docs](https://github.com/pingdotgg/t3code/blob/main/docs/user/appearance.md#environment-themes) for the details.
@@ -84,9 +99,10 @@ Built and checked against **T3 Code v0.0.45** (`main` at `31a9da1`).
 Checked:
 - Both themes import through the real **Add theme** dialog in a T3 Code dev build (web client), and both light and dark variants render. The screenshots above are from that build, showing an empty thread.
 - Both files decode against T3's server-side theme schema (valid id, colors present, 6 KB of the 32 KB limit).
+- `t3 theme set ./nous-alt.json` was run with T3 Code v0.0.45's CLI against a throwaway T3 home: it published the file as `nous-alt`, set it as the default, and `t3 theme show` listed it as published.
 - All text/background pairs pass the contrast checks above.
 
-Not checked: the Electron desktop app, `t3 theme set` against a live server, the mobile app, and real conversation content (messages, code blocks, diffs, the terminal). If a role looks off somewhere, open an issue.
+Not checked: the Electron desktop app, a live server pushing a published theme to connected clients, the mobile app, and real conversation content (messages, code blocks, diffs, the terminal). If a role looks off somewhere, open an issue.
 
 If T3 adds new color roles later, an older theme file fills the missing ones from T3 Chat's pink palette. Re-vendor the files in `vendor/` and rebuild to pick them up.
 
